@@ -1,10 +1,15 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../Context/AuthProvider";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const {auth,setAuth}=useAuth();
+
+  
 
   const navigate = useNavigate();
   
@@ -22,17 +27,36 @@ const Login = () => {
     const header = {
       headers: {
         "Content-Type": "application/json",
-      }
+      },
+      withCredentials: true,
     };
     
 
     try {
-      console.log(username,password);
       const response = await axios.post(URL, body, header);
-      console.log(response);
-      navigate("/");
+      if(response.status===200)
+      {
+        console.log(response);
+        const user = {
+          userId : response.data.data.userId,
+          userName : response.data.data.userName,
+          userRole : response.data.data.userRole,
+          isAuthenticated : response.data.data.authenticated,
+          accessExpiration : response.data.data.accessExpiration,
+          refereshExpiration : response.data.data.refereshExpiration
+        }
+        localStorage.setItem("user", JSON.stringify(user));
+        setAuth(user);
+        console.log(auth);
+        window.alert(response.data.message);
+        navigate("/");
+
+      }
+      
+      
     } catch (error) {
       console.log(error);
+      window.alert(error.data.message);
     }
 
     // console.log(username);
@@ -55,6 +79,7 @@ const Login = () => {
       <form>
         <div className="p-2 flex-col flex justify-center items-center w-96 h-80">
           <input
+            id="username"
             type="text"
             placeholder="email address"
             onChange={(event) => setUsername(event.target.value)}

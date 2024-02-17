@@ -35,15 +35,14 @@ const VerifyOTP = ({ role }) => {
       sessionStorage.removeItem('email');
       navigate("/login");
 
-      // Handle successful verification, e.g., redirect to the next page
     } catch (error) {
+      window.alert("Plese enter valid OTP");
       console.log(error);
-      // Handle verification error, e.g., display an error message
     }
   };
 
   return (
-    <div className="flex justify-center m-auto mt-16 w-fit border-yellow-100 border-2 shadow-2xl rounded-xl">
+    <div className="flex justify-center m-auto mt-28 w-fit border-yellow-100 border-2 shadow-2xl rounded-xl">
       <div className="p-3 flex-col flex justify-center items-center w-72  bg-yellow-200 rounded-l-lg">
         <span className="p-2 font-mono font-bold text-5xl  ">Verify OTP</span>
         <p className="p-2">Enter the OTP sent to your email address</p>
