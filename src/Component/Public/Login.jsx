@@ -1,10 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthProvider";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const {auth,setAuth}=useAuth();
@@ -20,7 +20,7 @@ const Login = () => {
     const URL = "http://localhost:8080/api/v1/login";
 
     const body = {
-      email: username,
+      email: userName,
       password: password,
      
     };
@@ -30,8 +30,6 @@ const Login = () => {
       },
       withCredentials: true,
     };
-    
-
     try {
       const response = await axios.post(URL, body, header);
       if(response.status===200)

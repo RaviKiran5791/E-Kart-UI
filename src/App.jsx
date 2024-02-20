@@ -2,10 +2,10 @@ import React from 'react'
 import Header from './Component/Util/Header'
 import { Outlet } from 'react-router-dom'
 
-const App = ({isAuthenticated}) => {
+const App = ({userName,isAuthenticated}) => {
   return (
     <div>
-      <Header isAuthenticated={isAuthenticated}/>
+      <Header userName={userName} isAuthenticated={isAuthenticated}/>
       <Outlet/>
     </div>
   )

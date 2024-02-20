@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import LogOut from "../Private/Common/LogOut";
 
-const Header = () => {
+
+const Header = ({userName,isAuthenticated}) => {
+
+  const {handleLogout}=LogOut();
+  
+
   return (
     <header className="bg-yellow-500 p-4">
       <nav className="flex justify-between items-center px-10">
@@ -21,13 +27,17 @@ const Header = () => {
         {/* Link Block */}
         <div className="flex items-center space-x-4 text-white flex gap-4">
           {/* Login */}
-          <Link to={"/login"} className="">Login</Link>
+          {isAuthenticated ? <Link to={"/"} className="p-2">{userName}</Link>:<Link to={"/login"} className="p-2">Login</Link>}
 
           {/* Cart */}
           <Link to={"/cart"} className="">Cart</Link>
 
            {/* Become a seller */}
            <Link to={"/seller"} className="">Become a seller</Link>
+
+           {/* Logout */}
+           {isAuthenticated ? <Link to={"/logout"} className="p-2" onClick={handleLogout}>Logout</Link>:<Link to={"/"} className="p-2"></Link>}
+
         </div>
       </nav>
     </header>
